@@ -1,18 +1,28 @@
 import "./app.css";
 import { useState } from "react";
 
+/*these should not be pushed to github, put in .env file,
+after you have placed info in the .env file, you need to restart your build to have this take effect*/
 const api = {
-  key: "2c2c8788aa26fa302d316e562b92e7c3",
-  base: "https://api.openweathermap.org/data/2.5/",
+   key: process.env.REACT_APP_API_KEY,
+  base: process.env.REACT_APP_API_BASE,
 };
 
+// const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_BASE = process.env.REACT_APP_API_BASE;
+
+
 function App() {
+
+  //two useState for the search "query" and the weather is ths json file that is returned from the api request
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
-  // evt stands for event
-  //this needs changing into a async
+  /*api fetch request
+  evt stands for event
+  could this be changed into a async?*/
   const search = (evt) => {
+    //the if statement is true if the "Enter" key is pressed on the keyboard
     if (evt.key === "Enter") {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then((res) => res.json())
@@ -20,11 +30,15 @@ function App() {
           setWeather(result);
           // sets the query back to empty, to allow other location to be typed
           setQuery("");
+          /*console.log no longer needed this was only to check info received from fetch */
           console.log(result);
         });
     }
   };
 
+  /*this is a constructor for the date 
+  d == the new Date () requested below
+  */
   const dateBuilder = (d) => {
     let months = [
       "January",
@@ -50,9 +64,13 @@ function App() {
       "Saturday",
     ];
 
+    //this returns a number between 0-6, which pulls the value of the date array
     let day = days[d.getDay()];
+    //this gives us the date, 1-31 for the date of the month
     let date = d.getDate();
+    //this returns a number between 0-11, which pulls the month out of the month array
     let month = months[d.getMonth()];
+    /*this returns the full year, for example 2021, just writing year returns "121" */
     let year = d.getFullYear();
 
     return `${day} ${date} ${month} ${year}`;
@@ -68,6 +86,7 @@ function App() {
           : "app"
       }
     >
+    {/* not used <main> before, but it does what is says on the tin, this identifies that main content of the document/page */}
       <main>
         <div className="searchBox">
           <input
@@ -83,8 +102,11 @@ function App() {
           <div>
             <div className="locationBox">
               <div className="location">
+              {/* this takes the name fromt eh weather json file
+              and the "sys" is part of the json object that the counrty is contained within  */}
                 {weather.name}, {weather.sys.country}
               </div>
+              {/* Date objects are created with the new Date() constructor. Based on the dateBuilder above, we are returning the current day, date, month and year */}
               <div className="date">{dateBuilder(new Date())}</div>
             </div>
             <div className="weatherBox">
@@ -92,6 +114,7 @@ function App() {
                 {/* to get the degree symbol it is  Alt + 0176*/}
                 {Math.round(weather.main.temp)}°C
               </div>
+              {/* some json files have multiple weather keys in their object (if the country is large) and we are requesting the first result in the weather key, if there is only one it will still return */}
               <div className="weather">{weather.weather[0].main}</div>
             </div>
           </div>

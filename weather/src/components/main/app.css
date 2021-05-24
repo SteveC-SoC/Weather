@@ -11,6 +11,7 @@ body {
 .app {
   background-image: url("../../assets/cold-bg.jpg");
   background-size: cover;
+  /* moves the picture to the bottom of the viewer screen (i think this is what makes it look off on the larger screens */
   background-position: bottom;
   /* this affects the change between the two background imagis */
   transition: 0.4s ease-out;
@@ -40,6 +41,7 @@ main {
      width: 100%;
      padding: 15px;
 
+     /* this section removes the search box from being visable, the box itself */
      appearance: none;
      background: none;
      border: none;
@@ -53,10 +55,11 @@ main {
 
      color: #313131;
      font-size: 20px;
-
+      /* remember to add the "s" on the end, otherwise the transition will not work */
      transition: 0.4s ease;
  }
 
+ /* this section makes the search box brighter, only when clicked on */
  .searchBox .searchBar:focus {
     background-color: rgba(255, 255, 255, 0.75);
  }
@@ -64,6 +67,7 @@ main {
  .locationBox .location{
      color: #FFF;
      font-size: 32px;
+     /* font weight is the thickness of the font, this about how heavy the pencil is pushed down */
      font-weight: 500;
      text-align: center;
      text-shadow: 3px 3px rgba(50, 50, 70 0.5);
@@ -84,6 +88,7 @@ main {
 
  .weatherBox .temp{
      position: relative;
+     /* inline-block allows to set a width and height on the element */
      display: inline-block;
      margin: 30px auto;
      background-color: rgba(255, 255, 255, 0.2);

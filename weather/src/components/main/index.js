@@ -78,6 +78,13 @@ function App() {
 
   return (
     <div
+    /*this is a bit complex/weird, it is a ternary inside a ternary, so im' going to break it down
+    outermost edge is saying if weather.main is not not "undefined" (so weather.main IS "undefined") return "app" as the className
+    
+    if weather.main is NOT "undefined", if the temp is GREATER than 16 return classname "app.warm" which shows the red background,
+     if temp is LESS than 16, return "app", which is the blue background
+    
+    the blue background is the default when the app opens */
       className={
         typeof weather.main != "undefined"
           ? weather.main.temp > 16

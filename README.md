@@ -12,3 +12,4 @@ Go through code and comment ✔
 Move api keys to private so they are not displayed on github ✔  
 Host ✔ [here](https://stevesoc-weather.netlify.app/) - looks better on a smaller screen (mobile)  
 Change backgroud to display better on larger screen  
+Add in an auto complete when searching  
